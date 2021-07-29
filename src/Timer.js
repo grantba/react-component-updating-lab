@@ -3,7 +3,7 @@ import React, { Component } from "react";
 class Timer extends Component {
   constructor() {
     super();
-    this.timer = React.createRef();
+    this.timer = React.createRef(); // class variable
     this.state = {
       time: 0,
       color: "#" + Math.floor(Math.random() * 16777215).toString(16)
@@ -11,6 +11,16 @@ class Timer extends Component {
   }
 
   //Your code here
+  shouldComponentUpdate(nextProps, nextState) {
+    if (this.state.time === nextState.time) {
+      return false
+    }
+    return true
+  }
+
+  componentDidUpdate() {
+    this.timer.current.style.color = "#" + Math.floor(Math.random() * 16777215).toString(16)
+  }
 
   componentDidMount() {
     this.interval = setInterval(
